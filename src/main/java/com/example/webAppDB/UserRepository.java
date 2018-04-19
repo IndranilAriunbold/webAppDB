@@ -3,7 +3,7 @@ package com.example.webAppDB;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
-import hello.User;
+import com.example.webAppDB.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
