@@ -1,0 +1,36 @@
+version: '3'
+services:
+  mysql2:
+    image: shortygeorge/test_mysql
+    volumes:
+        - db_data:/var/lib/mysql
+    environment:
+        - MYSQL_ROOT_PASSWORD=root_password
+        - MYSQL_DATABASE=keycloak
+        - MYSQL_USER=keycloak
+        - MYSQL_PASSWORD=password
+    ports:
+      - "3306:3306"
+    networks:
+        - webnet
+  docker-db-webapp:
+    image: shortygeorge/web-db-app
+    depends_on:
+      - mysql2
+    ports:
+     - "8080:8080"
+    volumes:
+     - .:/code
+    environment:
+        - DATABASE_HOST=mysql2
+        #- GET_HOSTS_FROM=dns
+        - DATABASE_USER=keycloak
+        - DATABASE_PASSWORD=password
+        - DATABASE_NAME=keycloak
+        - DATABASE_PORT=3306
+    networks:
+        - webnet
+networks:
+  webnet:
+volumes:
+  db_data:
